@@ -130,17 +130,17 @@ export const personalData = {
   profile: "/profile.png",
   designation: "Automation Technical Lead",
   description: "Aravind Balineni is an Automation Technical Lead with extensive experience in RPA implementation and Python integration. He has a proven track record of innovation, solution consulting, and transforming traditional SDLC processes to Agile. Aravind excels in customer engagement and people management, building and guiding high-performing teams.",
-  email: "aravindbalineni123@gmail.com",
-  phone: "9963779790",
+  email: "****@***.***",
+  phone: "********",
   address: "Hyderabad",
   github: "https://github.com/arwin1109",
   facebook: "",
-  linkedIn: "https://www.linkedin.com/in/aravindbalineni/",
+  linkedIn: "https://www.linkedin.com/in/?????/",
   twitter: "",
   stackOverflow: "",
   leetcode: "",
   devUsername: "",
-  resume: "documents/Aravind Balineni Resume.pdf",
+  resume: "documents/Resume.pdf",
 };
 ```
 
