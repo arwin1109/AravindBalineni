@@ -35,7 +35,6 @@ function ContactSection() {
                 size={36}
               />
               <span>
-                {personalData.phone}
               </span>
             </p>
             <p className="text-sm md:text-xl flex items-center gap-3">
