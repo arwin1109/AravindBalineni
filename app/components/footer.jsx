@@ -12,9 +12,6 @@ function Footer() {
           <p className="text-sm">
             © Managed by <Link target="_blank" href="https://www.linkedin.com/in/aravindbalineni/" className="text-[#16f2b3]">Aravind Balineni</Link>
           </p>
-          <p className="text-xs">
-            Credits: ABU SAID
-          </p>
         </div>
       </div>
     </div >
