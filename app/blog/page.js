@@ -1,7 +1,7 @@
 // @flow strict
 
-import { linkedinBlogs } from "@/utils/data/linkedin-blogs";
-import BlogCard from "../components/homepage/blog/blog-card";
+import { linkedinBlogs } from "@/content/portfolio/blogs";
+import BlogCard from "../components/sections/home/blog/blog-card";
 
 function page() {
 

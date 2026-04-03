@@ -1,12 +1,12 @@
-import { linkedinBlogs } from "@/utils/data/linkedin-blogs";
-import AboutSection from "./components/homepage/about";
-import Blog from "./components/homepage/blog";
-import ContactSection from "./components/homepage/contact";
-import Education from "./components/homepage/education";
-import Experience from "./components/homepage/experience";
-import HeroSection from "./components/homepage/hero-section";
-import Projects from "./components/homepage/projects";
-import Skills from "./components/homepage/skills";
+import { linkedinBlogs } from "@/content/portfolio/blogs";
+import AboutSection from "./components/sections/home/about";
+import Blog from "./components/sections/home/blog";
+import ContactSection from "./components/sections/home/contact";
+import Education from "./components/sections/home/education";
+import Experience from "./components/sections/home/experience";
+import HeroSection from "./components/sections/home/hero";
+import Projects from "./components/sections/home/projects";
+import Skills from "./components/sections/home/skills";
 
 export default function Home() {
 

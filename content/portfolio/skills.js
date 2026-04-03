@@ -1,0 +1,18 @@
+export const skillsData = [
+    "UiPath",
+    "Python",
+    "LangChain",
+    "LangGraph",
+    "n8n",
+    "Java",
+    "VB.Net",
+    "SQL",
+    "Flask",
+    "Git",
+    "Docker",
+    "Jenkins",
+    "AWS",
+    "Salesforce",
+    "JIRA",
+    "Kibana",
+];
