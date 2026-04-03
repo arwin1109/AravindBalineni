@@ -2,6 +2,7 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Analytics } from "@vercel/analytics/next";
 import Footer from "./components/layout/footer";
 import Navbar from "./components/layout/navbar";
 import ScrollToTop from "./components/ui/scroll-to-top";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
         {process.env.NEXT_PUBLIC_GTM && (
           <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM} />
         )}
+        <Analytics />
       </body>
     </html>
   );
