@@ -5,7 +5,7 @@ export const linkedinBlogs = [
             "Introduction to Model Context Protocol (MCP) Servers and how they extend agent capabilities on the UiPath platform.",
         url: "https://www.linkedin.com/pulse/introducing-mcp-severs-uipaths-new-capability-agents-balineni-rqdyc?trackingId=BMkaS4kVRWGFyyShr728Bg%3D%3D&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_recent_activity_content_view%3BcLvC%2FlnIR%2BaXUppgE%2BpWgQ%3D%3D",
         cover_image:
-            "https://media.licdn.com/dms/image/v2/D5612AQE55EFPUtonXw/article-cover_image-shrink_720_1280/B56ZhFmTrTHkAM-/0/1753514338160?e=1759968000&v=beta&t=u0FiGgXaDEmxL9APgFd-H9ezUVifCb9BSwjeqcEoURM",
+            "https://media.licdn.com/dms/image/v2/D5612AQE55EFPUtonXw/article-cover_image-shrink_720_1280/B56ZhFmTrTHkAM-/0/1753514338160?e=2147483647&v=beta&t=IE6bX-EHIoJO2LRY_oqACo5FFtM5sFiGeXRV5hSoP2E",
         published_at: "2025-07-26T00:00:00Z",
         public_reactions_count: 0,
         comments_count: 0,
@@ -17,7 +17,7 @@ export const linkedinBlogs = [
             "A practical deep dive into UiPath IXP and document intelligence strategies for enterprise workflows.",
         url: "https://www.linkedin.com/pulse/transforming-document-processing-deep-dive-uipath-ixp-balineni-mkgoc?trackingId=BMkaS4kVRWGFyyShr728Bg%3D%3D&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_recent_activity_content_view%3BcLvC%2FlnIR%2BaXUppgE%2BpWgQ%3D%3D",
         cover_image:
-            "https://media.licdn.com/dms/image/v2/D5612AQGluB8cJlGnvg/article-cover_image-shrink_600_2000/B56ZW2_IBpGUAQ-/0/1742531757232?e=1759968000&v=beta&t=Qrv1IZyCwwWcTWqmaQgW52VnDYhmv7UiQ8ns4xKPszI",
+            "https://media.licdn.com/dms/image/v2/D5612AQGluB8cJlGnvg/article-cover_image-shrink_720_1280/B56ZW2_IBpGUAI-/0/1742531757288?e=2147483647&v=beta&t=B_TPFIX9hoOECwtb5cVFmF8W9aixV-qK-EHPfhhkPEw",
         published_at: "2025-03-21T00:00:00Z",
         public_reactions_count: 0,
         comments_count: 0,
@@ -29,7 +29,7 @@ export const linkedinBlogs = [
             "An overview of Devin AI and implications for software engineering teams and delivery models.",
         url: "https://www.linkedin.com/pulse/devin-ai-revolutionizing-software-engineering-aravind-balineni-elwxc?trackingId=BMkaS4kVRWGFyyShr728Bg%3D%3D&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_recent_activity_content_view%3BcLvC%2FlnIR%2BaXUppgE%2BpWgQ%3D%3D",
         cover_image:
-            "https://media.licdn.com/dms/image/v2/D5612AQFVsoEbQeTnKQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1711040598497?e=1759968000&v=beta&t=saBwiajYwOScGT33VnExswFS37lsskjkHg2-WtXnEx0",
+            "https://media.licdn.com/dms/image/v2/D5612AQFVsoEbQeTnKQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1711040598497?e=2147483647&v=beta&t=vVHfYnV4Y78jrIaa2qZkUprgGbfeb4zWD7RZcDbOi0E",
         published_at: "2024-03-21T00:00:00Z",
         public_reactions_count: 0,
         comments_count: 0,
@@ -41,7 +41,7 @@ export const linkedinBlogs = [
             "A practical guide to designing and shipping reusable custom automation activities.",
         url: "https://www.linkedin.com/pulse/guide-creating-custom-activities-aravind-balineni?trackingId=BMkaS4kVRWGFyyShr728Bg%3D%3D&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_recent_activity_content_view%3BcLvC%2FlnIR%2BaXUppgE%2BpWgQ%3D%3D",
         cover_image:
-            "https://media.licdn.com/dms/image/v2/D4E12AQEhKINAtthykw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1693583333475?e=1759968000&v=beta&t=jCXIhfl8eCrteG1gOrexVph0LAyLC_nduwo3GPQ2v5o",
+            "https://media.licdn.com/dms/image/v2/D4E12AQEhKINAtthykw/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1693583333475?e=2147483647&v=beta&t=HvrbVKlBY2w4MMJBUuOwd6vROuZBGPBcZdrskKqN4zA",
         published_at: "2023-09-01T00:00:00Z",
         public_reactions_count: 0,
         comments_count: 0,

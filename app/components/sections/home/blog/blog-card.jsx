@@ -1,21 +1,26 @@
-// @flow strict
+"use client";
 import { timeConverter } from '@/lib/formatters/time';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { BsHeartFill } from 'react-icons/bs';
 import { FaCommentAlt } from 'react-icons/fa';
 
 function BlogCard({ blog }) {
+  const [imgSrc, setImgSrc] = useState(blog?.cover_image || '/card.png');
+  const isLinkedIn = blog?.cover_image?.includes('licdn.com');
 
   return (
     <div className="border border-[#1d293a] hover:border-[#464c6a] transition-all duration-500 bg-[#1b203e] rounded-lg relative group"
     >
       <div className="h-44 lg:h-52 w-auto cursor-pointer overflow-hidden rounded-t-lg">
         <Image
-          src={blog?.cover_image}
+          src={imgSrc}
           height={1080}
           width={1920}
-          alt=""
+          alt={blog?.title || 'Blog cover image'}
+          unoptimized={isLinkedIn}
+          onError={() => setImgSrc('/card.png')}
           className='h-full w-full group-hover:scale-110 transition-all duration-300'
         />
       </div>
