@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
-import { createChatCompletion, createEmbedding, OmniRouteError } from "@/lib/rag/omniroute";
+import { createChatCompletion, createEmbedding, CohereApiError } from "@/lib/rag/llmClient";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 /**
  * TEMPORARY diagnostic endpoint. Isolates whether the chat-completions and
- * embeddings paths on the omniroute gateway each independently work, so a
- * persistent /api/chat 502 can be root-caused without ever exposing
- * OMNIROUTE_API_KEY — this runs server-side with the real key already in
+ * embeddings paths on Cohere's compatibility API each independently work,
+ * so a persistent /api/chat 502 can be root-caused without ever exposing
+ * COHERE_API_KEY — this runs server-side with the real key already in
  * the Lambda's env, so nobody needs to paste a secret anywhere to use it.
  *
  * Gated by DIAG_TOKEN (a random value set only in Vercel) via the
@@ -36,9 +36,9 @@ export async function GET(request) {
   } catch (error) {
     result.chat = {
       ok: false,
-      status: error instanceof OmniRouteError ? error.status ?? null : null,
+      status: error instanceof CohereApiError ? error.status ?? null : null,
       message: error.message,
-      cause: error instanceof OmniRouteError ? String(error.cause ?? "").slice(0, 500) : undefined,
+      cause: error instanceof CohereApiError ? String(error.cause ?? "").slice(0, 500) : undefined,
     };
   }
 
@@ -48,9 +48,9 @@ export async function GET(request) {
   } catch (error) {
     result.embedding = {
       ok: false,
-      status: error instanceof OmniRouteError ? error.status ?? null : null,
+      status: error instanceof CohereApiError ? error.status ?? null : null,
       message: error.message,
-      cause: error instanceof OmniRouteError ? String(error.cause ?? "").slice(0, 500) : undefined,
+      cause: error instanceof CohereApiError ? String(error.cause ?? "").slice(0, 500) : undefined,
     };
   }
 

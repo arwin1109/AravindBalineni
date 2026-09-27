@@ -12,7 +12,7 @@ import {
 } from "@/lib/rag/rateLimit";
 import { retrieveContext } from "@/lib/rag/retrieve";
 import { buildSystemPrompt } from "@/lib/rag/systemPrompt";
-import { createChatCompletion, OmniRouteError } from "@/lib/rag/omniroute";
+import { createChatCompletion, CohereApiError } from "@/lib/rag/llmClient";
 import { getClientIp, hashIp } from "@/lib/rag/clientIp";
 import { looksLikeInjectionAttempt } from "@/lib/rag/guardrailFilter";
 
@@ -184,8 +184,8 @@ export async function POST(request) {
       )
     );
   } catch (error) {
-    if (error instanceof OmniRouteError) {
-      console.error("[api/chat] OmniRoute error:", error.message, error.cause ?? "");
+    if (error instanceof CohereApiError) {
+      console.error("[api/chat] Cohere API error:", error.message, error.cause ?? "");
     } else {
       console.error("[api/chat] unexpected error:", error);
     }
