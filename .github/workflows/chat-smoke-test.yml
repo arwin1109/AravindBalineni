@@ -1,0 +1,27 @@
+name: Chat API smoke test
+
+# Verifies /api/chat responds without a server error. Runs after every push
+# to main (i.e. after a production deploy) and on demand. Needs no secrets —
+# it only makes an unauthenticated POST against the public endpoint.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Base URL to test (defaults to production)"
+        required: false
+        type: string
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run /api/chat smoke test
+        env:
+          SMOKE_TEST_URL: ${{ github.event.inputs.url }}
+        run: node scripts/smoke-test-chat.mjs
