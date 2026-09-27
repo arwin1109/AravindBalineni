@@ -1,0 +1,35 @@
+name: Ingest portfolio content into Supabase vector store
+
+# Re-runs scripts/ingest-portfolio-data.mjs to refresh public.portfolio_vec
+# whenever content/portfolio/**.js changes, so the chatbot's answers stay in
+# sync with the site content without a manual step.
+#
+# Manual-dispatch only for now. To enable it, add these repo secrets
+# (Settings > Secrets and variables > Actions), then uncomment the `push`
+# trigger below:
+#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, OMNIROUTE_API_KEY, EMBEDDING_MODEL
+# (OMNIROUTE_BASE_URL is optional — it defaults to the production gateway.)
+on:
+  workflow_dispatch: {}
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - "content/portfolio/**"
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Run ingestion script
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OMNIROUTE_BASE_URL: ${{ secrets.OMNIROUTE_BASE_URL }}
+          OMNIROUTE_API_KEY: ${{ secrets.OMNIROUTE_API_KEY }}
+          EMBEDDING_MODEL: ${{ secrets.EMBEDDING_MODEL }}
+        run: npm run ingest:portfolio

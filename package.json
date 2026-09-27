@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "ingest:portfolio": "node scripts/ingest-portfolio-data.mjs"
+    "ingest:portfolio": "node scripts/ingest-portfolio-data.mjs",
+    "smoke:chat": "node scripts/smoke-test-chat.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.1",
