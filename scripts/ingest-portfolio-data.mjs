@@ -4,8 +4,8 @@
  * for the floating RAG chatbot (see app/api/chat/route.js).
  *
  * Required env vars (put them in .env or export them before running):
- *   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
- *   OMNIROUTE_API_KEY, EMBEDDING_MODEL   (OMNIROUTE_BASE_URL optional)
+ *   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, COHERE_API_KEY
+ *   (EMBEDDING_MODEL optional — defaults to embed-v4.0, see lib/rag/llmClient.js)
  *
  * Run with: npm run ingest:portfolio
  * Safe to re-run: it clears and re-inserts every row each time, since the
@@ -20,13 +20,8 @@ import { educations } from "../content/portfolio/education.js";
 import { skillsData } from "../content/portfolio/skills.js";
 import { projectsData } from "../content/portfolio/projects.js";
 import { linkedinBlogs } from "../content/portfolio/blogs.js";
+import { createEmbedding } from "../lib/rag/llmClient.js";
 
-const OMNIROUTE_BASE_URL = (process.env.OMNIROUTE_BASE_URL || "https://omniroute.code2vibe.dev/v1").replace(
-  /\/+$/,
-  ""
-);
-const OMNIROUTE_API_KEY = process.env.OMNIROUTE_API_KEY;
-const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL;
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -37,8 +32,7 @@ function requireEnv(name, value) {
   }
 }
 
-requireEnv("OMNIROUTE_API_KEY", OMNIROUTE_API_KEY);
-requireEnv("EMBEDDING_MODEL", EMBEDDING_MODEL);
+requireEnv("COHERE_API_KEY", process.env.COHERE_API_KEY);
 requireEnv("SUPABASE_URL", SUPABASE_URL);
 requireEnv("SUPABASE_SERVICE_ROLE_KEY", SUPABASE_SERVICE_ROLE_KEY);
 
@@ -91,29 +85,6 @@ function buildDocuments() {
   return docs;
 }
 
-async function embed(text) {
-  const response = await fetch(`${OMNIROUTE_BASE_URL}/embeddings`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${OMNIROUTE_API_KEY}`,
-    },
-    body: JSON.stringify({ model: EMBEDDING_MODEL, input: text }),
-  });
-
-  if (!response.ok) {
-    const body = await response.text().catch(() => "");
-    throw new Error(`Embedding request failed (${response.status}): ${body}`);
-  }
-
-  const data = await response.json();
-  const embedding = data?.data?.[0]?.embedding;
-  if (!Array.isArray(embedding)) {
-    throw new Error(`Unexpected /embeddings response shape: ${JSON.stringify(data).slice(0, 300)}`);
-  }
-  return embedding;
-}
-
 async function main() {
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
     auth: { persistSession: false },
@@ -126,7 +97,7 @@ async function main() {
   for (const [index, doc] of documents.entries()) {
     const label = doc.metadata.title || doc.metadata.section;
     process.stdout.write(`Embedding ${index + 1}/${documents.length}: ${label}... `);
-    const embedding = await embed(doc.content);
+    const embedding = await createEmbedding(doc.content);
     rows.push({
       content: doc.content,
       chunk_index: index,

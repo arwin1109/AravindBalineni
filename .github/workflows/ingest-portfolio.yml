@@ -7,8 +7,8 @@ name: Ingest portfolio content into Supabase vector store
 # Manual-dispatch only for now. To enable it, add these repo secrets
 # (Settings > Secrets and variables > Actions), then uncomment the `push`
 # trigger below:
-#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, OMNIROUTE_API_KEY, EMBEDDING_MODEL
-# (OMNIROUTE_BASE_URL is optional — it defaults to the production gateway.)
+#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, COHERE_API_KEY
+# (EMBEDDING_MODEL is optional — it defaults to embed-v4.0.)
 on:
   workflow_dispatch: {}
   # push:
@@ -29,7 +29,6 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          OMNIROUTE_BASE_URL: ${{ secrets.OMNIROUTE_BASE_URL }}
-          OMNIROUTE_API_KEY: ${{ secrets.OMNIROUTE_API_KEY }}
+          COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
           EMBEDDING_MODEL: ${{ secrets.EMBEDDING_MODEL }}
         run: npm run ingest:portfolio
