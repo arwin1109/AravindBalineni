@@ -7,11 +7,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ingest:portfolio": "node scripts/ingest-portfolio-data.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.1",
     "@next/third-parties": "15.1.1",
+    "@supabase/supabase-js": "^2.45.4",
     "axios": "^1.6.8",
     "framer-motion": "^12.23.12",
     "lottie-react": "^2.4.1",
@@ -26,6 +28,7 @@
   },
   "devDependencies": {
     "autoprefixer": "latest",
+    "dotenv": "^16.4.5",
     "eslint": "latest",
     "eslint-config-next": "15.5.26",
     "postcss": "latest",
