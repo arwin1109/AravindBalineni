@@ -30,8 +30,8 @@ Ensure you have Node.js installed on your operating system.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/arwin1109/developer-portfolio.git
-cd developer-portfolio
+git clone https://github.com/arwin1109/aravindbalineni.git
+cd aravindbalineni
 ```
 
 2. Install dependent packages

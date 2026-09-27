@@ -1,10 +1,18 @@
+"use client";
 // @flow strict
 
 import { personalData } from "@/content/portfolio/personal";
 import Image from "next/image";
+import { useState } from "react";
 
+// Fallback if the LinkedIn-hosted profile photo URL ever expires or is
+// revoked (it's a signed CDN URL, not a permanent asset). Falls back to
+// the local brand mark rather than a broken image.
+const FALLBACK_IMAGE = "/logo-ab.png";
 
 function AboutSection() {
+  const [imgSrc, setImgSrc] = useState(personalData.profile);
+
   return (
     <div id="about" className="my-12 lg:my-16 relative">
       <div className="hidden lg:flex flex-col items-center absolute top-16 -right-8">
@@ -24,16 +32,17 @@ function AboutSection() {
         </div>
         <div className="flex justify-center order-1 lg:order-2">
           <Image
-            src={personalData.profile}
+            src={imgSrc}
             width={280}
             height={280}
             alt={personalData.name}
+            onError={() => setImgSrc(FALLBACK_IMAGE)}
             className="rounded-lg transition-all duration-1000 grayscale hover:grayscale-0 hover:scale-110 cursor-pointer"
           />
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default AboutSection;

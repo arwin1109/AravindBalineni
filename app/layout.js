@@ -9,12 +9,58 @@ import "./css/card.scss";
 import "./css/globals.scss";
 const inter = Inter({ subsets: ["latin"] });
 
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://aravindbalineni.code2vibe.dev";
+const title = "Portfolio of Aravind Balineni - Automation Technical Lead";
+const description =
+  "Automation Technical Lead with 11+ years in IT and 8+ years in intelligent automation. Delivered 70+ enterprise automations across healthcare, telecom, and finance using UiPath, agentic AI, document intelligence, and system integrations.";
+
 export const metadata = {
-  title: "Portfolio of Aravind Balineni - Automation Technical Lead",
-  description:
-    "Automation Technical Lead with 11+ years in IT and 8+ years in intelligent automation. Delivered 70+ enterprise automations across healthcare, telecom, and finance using UiPath, agentic AI, document intelligence, and system integrations.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  keywords: [
+    "Aravind Balineni",
+    "Automation Technical Lead",
+    "RPA",
+    "UiPath",
+    "Agentic AI",
+    "n8n",
+    "LangChain",
+    "LangGraph",
+    "Intelligent Automation",
+    "Healthcare Automation",
+  ],
+  authors: [{ name: "Aravind Balineni", url: siteUrl }],
   icons: {
-    icon: 'https://media.licdn.com/dms/image/v2/C5103AQG8N8uUA5X0lg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1579090848363?e=2147483647&v=beta&t=q6MmMak5V9jW-ObAO24Q6biONtuzMzfRPoEaFP6KU-U',
+    icon: "/logo-ab.png",
+    apple: "/logo-ab.png",
+  },
+  openGraph: {
+    title,
+    description,
+    url: siteUrl,
+    siteName: "Aravind Balineni Portfolio",
+    images: [
+      {
+        url: "/card.png",
+        width: 1682,
+        height: 722,
+        alt: "Aravind Balineni - Automation Technical Lead",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/card.png"],
+    creator: "@ArwinInReal",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
