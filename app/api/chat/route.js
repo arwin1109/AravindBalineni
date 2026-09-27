@@ -12,6 +12,7 @@ import { retrieveContext } from "@/lib/rag/retrieve";
 import { buildSystemPrompt } from "@/lib/rag/systemPrompt";
 import { createChatCompletion, OmniRouteError } from "@/lib/rag/omniroute";
 import { getClientIp, hashIp } from "@/lib/rag/clientIp";
+import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -68,24 +69,29 @@ export async function POST(request) {
   let rateLimitResult;
   try {
     rateLimitResult = await consumeRateLimit(visitorId);
-
-    // Secondary IP-based backstop — best-effort, never blocks the request if
-    // the IP can't be determined or the check itself fails.
-    const ip = getClientIp(request);
-    if (ip) {
-      const ipKey = `ip:${await hashIp(ip)}`;
-      const { getSupabaseAdminClient } = await import("@/lib/supabase/admin");
-      const supabase = getSupabaseAdminClient();
-      await supabase
-        .rpc("consume_portfolio_rate_limit", { p_visitor_id: ipKey, p_limit: IP_RATE_LIMIT })
-        .single();
-    }
   } catch (error) {
     console.error("[api/chat] rate limit check failed:", error);
     return NextResponse.json(
       { error: "The assistant is temporarily unavailable. Please try again shortly." },
       { status: 503 }
     );
+  }
+
+  // Secondary IP-based backstop — best-effort, isolated in its own try/catch
+  // so a failure here (can't determine IP, transient DB hiccup) never blocks
+  // the request. It never overrides `rateLimitResult`, which stays the
+  // authoritative, per-visitor decision.
+  try {
+    const ip = getClientIp(request);
+    if (ip) {
+      const ipKey = `ip:${await hashIp(ip)}`;
+      const supabase = getSupabaseAdminClient();
+      await supabase
+        .rpc("consume_portfolio_rate_limit", { p_visitor_id: ipKey, p_limit: IP_RATE_LIMIT })
+        .single();
+    }
+  } catch (error) {
+    console.error("[api/chat] IP rate limit backstop failed (non-blocking):", error);
   }
 
   const responseInit = { status: 200 };
