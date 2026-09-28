@@ -8,8 +8,14 @@
  *   (EMBEDDING_MODEL optional — defaults to embed-v4.0, see lib/rag/llmClient.js)
  *
  * Run with: npm run ingest:portfolio
- * Safe to re-run: it clears and re-inserts every row each time, since the
- * corpus is small and fully derived from content/portfolio/*.js.
+ * Safe to re-run: it clears and re-inserts every row each time.
+ *
+ * Sources: content/portfolio/*.js (also rendered on the site UI), plus a
+ * fixed RESUME_ONLY_FACTS block below sourced from
+ * "public/Aravind Balineni Resume.pdf" for facts on the resume that aren't
+ * broken out in content/portfolio/*.js (certifications, awards, detailed
+ * skill categories, domains). Keep that block in sync with the resume by
+ * hand — it deliberately doesn't parse the PDF at ingest time.
  */
 import "dotenv/config";
 import { createClient } from "@supabase/supabase-js";
@@ -35,6 +41,33 @@ function requireEnv(name, value) {
 requireEnv("COHERE_API_KEY", process.env.COHERE_API_KEY);
 requireEnv("SUPABASE_URL", SUPABASE_URL);
 requireEnv("SUPABASE_SERVICE_ROLE_KEY", SUPABASE_SERVICE_ROLE_KEY);
+
+// Facts that are on the public resume (public/Aravind Balineni Resume.pdf)
+// but aren't broken out as their own fields in content/portfolio/*.js.
+// Intentionally excludes anything not already public on that resume —
+// e.g. no named clients, no internal team/infra details.
+const RESUME_ONLY_FACTS = {
+  certifications: [
+    "UiPath Certified Developer Professional",
+    "UiPath Specialized AI Professional",
+    "UiPath Certified Agentic Automation Associate",
+  ],
+  awards: [
+    "Top Performer, Accelirate (Q2 2024 to 2025)",
+    "Bronze, Accelirate Championship Program (2024 and 2025)",
+    "Spot Award, Accelirate (Q3 2022 to 2023)",
+    "Star Performer, Tech Mahindra (2018 and 2020)",
+    "Digital Warrior Award, Tech Mahindra (2021)",
+  ],
+  skillCategories: [
+    { label: "AI & Agents", items: "LangChain, LangGraph, UiPath BYOA, agentic workflows, human-in-the-loop automation, AI classification & extraction" },
+    { label: "RPA Platforms", items: "UiPath Studio, Orchestrator, REFramework, Custom Activities, n8n, webhooks, event-driven pipelines, Document Understanding, ABBYY FineReader, ABBYY Cloud OCR, Microsoft OCR, Tesseract, ML extractors" },
+    { label: "Programming", items: "Python, Java, VB.Net, SQL, Google Apps Script, Python-Flask" },
+    { label: "Integrations", items: "REST APIs, Salesforce, ServiceNow, JIRA, Amazon S3, Kibana, relational databases" },
+    { label: "DevOps", items: "Docker, Git, Jenkins, CI/CD, self-hosted automation agents" },
+  ],
+  domains: "Healthcare (Prior Authorization, Claims), Telecom, Finance",
+};
 
 function buildDocuments() {
   const docs = [];
@@ -81,6 +114,28 @@ function buildDocuments() {
       metadata: { section: "blogs", source: "content/portfolio/blogs.js", title: blog.title },
     });
   }
+
+  docs.push({
+    content: `${personalData.name}'s certifications: ${RESUME_ONLY_FACTS.certifications.join(", ")}.`,
+    metadata: { section: "certifications", source: "resume" },
+  });
+
+  docs.push({
+    content: `${personalData.name}'s awards and recognition: ${RESUME_ONLY_FACTS.awards.join("; ")}.`,
+    metadata: { section: "awards", source: "resume" },
+  });
+
+  for (const category of RESUME_ONLY_FACTS.skillCategories) {
+    docs.push({
+      content: `${personalData.name}'s ${category.label} skills: ${category.items}.`,
+      metadata: { section: "skills", source: "resume", title: category.label },
+    });
+  }
+
+  docs.push({
+    content: `${personalData.name} has delivered automation work across these industry domains: ${RESUME_ONLY_FACTS.domains}.`,
+    metadata: { section: "skills", source: "resume", title: "domains" },
+  });
 
   return docs;
 }
